@@ -1,40 +1,357 @@
 @import "settings";
 @import "foundation";
+@import "compass";
+@import "animation";
 
-// Or selectively include components
-// @import
-//   "foundation/components/accordion",
-//   "foundation/components/alert-boxes",
-//   "foundation/components/block-grid",
-//   "foundation/components/breadcrumbs",
-//   "foundation/components/button-groups",
-//   "foundation/components/buttons",
-//   "foundation/components/clearing",
-//   "foundation/components/dropdown",
-//   "foundation/components/dropdown-buttons",
-//   "foundation/components/flex-video",
-//   "foundation/components/forms",
-//   "foundation/components/grid",
-//   "foundation/components/inline-lists",
-//   "foundation/components/joyride",
-//   "foundation/components/keystrokes",
-//   "foundation/components/labels",
-//   "foundation/components/magellan",
-//   "foundation/components/orbit",
-//   "foundation/components/pagination",
-//   "foundation/components/panels",
-//   "foundation/components/pricing-tables",
-//   "foundation/components/progress-bars",
-//   "foundation/components/reveal",
-//   "foundation/components/side-nav",
-//   "foundation/components/split-buttons",
-//   "foundation/components/sub-nav",
-//   "foundation/components/switch",
-//   "foundation/components/tables",
-//   "foundation/components/tabs",
-//   "foundation/components/thumbs",
-//   "foundation/components/tooltips",
-//   "foundation/components/top-bar",
-//   "foundation/components/type",
-//   "foundation/components/offcanvas",
-//   "foundation/components/visibility";
+// define some commont colors 
+$color-border: #d8d8d8;
+$color-blue: #6ED2EB; 
+$color-blue-darker: #3C8C9C;
+$color-grey: #F0F0F0;
+$color-grey-dark: #AFAFAF;
+$color-white: #FFF;
+$color-green: #8EBE38; 
+
+body {
+  margin: rem-calc(40) 0;
+  background: $color-grey;
+}
+
+.opower-widget {
+  border: 1px solid $color-border;
+  background: $color-white;
+}
+
+header {
+
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+
+  background: $color-blue; 
+
+  h1 {    
+    font-family: 'Open Sans', arial, sans-serif;
+    font-weight: 400;
+    font-size: rem-calc(13);
+    text-transform: uppercase;
+    letter-spacing: rem-calc(1);
+    text-shadow: 0 1px 0 rgba($color-blue-darker,.3);
+    display: inline-block;
+
+    color: $color-white;
+
+  }
+}
+
+h3 {
+
+  font-weight: 300;
+
+  strong {
+    color: $color-green;
+  }
+
+}
+
+// overriding foudnation's tab styling 
+
+.tabs {
+
+  dd {
+
+    top: rem-calc(-1);
+    margin-left: rem-calc(18);
+
+    a {
+
+      font-size: rem-calc(13);
+      color: tint($color-blue, 50%);      
+      text-shadow: 0 1px 0 rgba($color-blue-darker,.3);
+
+      background: transparent;
+
+      padding: rem-calc(2) 0;
+
+      &:hover {
+        color: $color-white;         
+        background: transparent; 
+      }
+    }
+
+    &.active {
+
+      a {
+        color: $color-white; 
+        background: transparent;         
+      }
+    }
+
+    &:hover {
+      background: transparent;
+    }
+  }
+}
+
+// some generic stylesing 
+
+.pad-all {
+  padding: 1rem 0.6rem;
+}
+
+// text stuff for insight panel  
+
+.important-text {
+  color: darken($color-blue,20%);
+  font-size: rem-calc(46);
+  font-weight: 600;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+
+  @media #{$medium-only} { 
+    font-size: rem-calc(36);
+  }
+
+}
+
+.units-small {
+  font-size: rem-calc(13);
+
+  @media #{$medium-only} { 
+    font-size: rem-calc(10);
+  }
+
+}
+
+.small-text {
+  font-size: rem-calc(10);
+  letter-spacing: rem-calc(1);
+
+  text-transform: uppercase; 
+  color: $color-grey-dark;
+  font-weight: 300;
+
+  margin-bottom: 0rem;
+
+}
+
+.reading-text {
+  font-size: rem-calc(13);
+  letter-spacing: rem-calc(0.25);
+}
+
+/* insight */
+
+.insight {
+
+  @media #{$medium-up} {
+    border-left: 1px solid $color-border;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+  }
+
+  @media #{$small-only} {    
+    border-top: 1px solid $color-border;
+    padding-top: 1rem; 
+    margin-bottom: 1rem;
+  }
+
+}
+
+/* for content tabs 
+   this is getting really really messy 
+*/ 
+
+$icon-w: 44px; 
+$icon-h: 44px; 
+
+
+.icon {
+  display: inline-block;
+  width: $icon-w; 
+  height: $icon-h; 
+  margin: 0.6rem; 
+}
+
+$icon-big-w: 200px; 
+$icon-big-h: 200px; 
+
+.icon-big {
+  width: $icon-big-w; 
+  height: $icon-big-h; 
+}
+
+/* car animations */
+
+.i-car {
+
+  position: relative; 
+
+  &.is-guzzler {
+
+    background: transparent url('../images/car.svg') no-repeat;
+    background-size: $icon-w $icon-h;
+
+    &:hover .ball {
+      @include animation(smoke 2s ease-in infinite);
+
+      &:nth-child(2) {
+        @include animation-delay(0.35s);
+      }
+    }
+  }
+
+  &.is-eco {
+
+    background: transparent url('../images/eco-car.svg') no-repeat;
+    background-size: $icon-w $icon-h;
+
+    &.icon-big {
+      background-size: $icon-big-w $icon-big-h;
+    }
+
+
+    &:hover {
+      @include animation(fade_out 0.5s ease-in 1 forwards);  
+    }
+  }
+
+  &.is-hidden {
+    background: transparent url('../images/eco-car-outline.svg') no-repeat;
+    background-size: $icon-w $icon-h;
+
+    &.icon-big {
+      background-size: $icon-big-w $icon-big-h;
+    }
+
+  }
+
+}
+
+
+.ball {
+  background: transparent url('../images/ball.svg') no-repeat;
+  background-size: 12px 12px;
+  width: 12px; 
+  height: 12px;
+  position: absolute; 
+  top: 16px;
+  opacity: 0;
+}
+
+@include keyframes (fade_out) {
+  0% {
+    opacity: 1.0; 
+  }
+
+  100% {
+    opacity: 0.0;
+  }
+
+}
+
+@include keyframes (smoke) {
+  0% { 
+    left: 0px; 
+    opacity: 1.0; 
+    @include scale(0.2,0.2); 
+  }
+  50% {
+    left: -15px; 
+    opacity: 0.0; 
+    @include scale(1.0,1.0);
+  }
+}
+
+@include keyframes (smoke_big) {
+  0% { 
+    left: 0px; 
+    opacity: 1.0; 
+    @include scale(0.2,0.2); 
+  }
+  50% {
+    left: -40px; 
+    opacity: 0.0; 
+    @include scale(1.0,1.0);
+  }
+}
+
+/* tree animations */ 
+
+.i-tree {
+
+  position: relative;
+  background: transparent url('../images/stomp.svg') no-repeat;
+  background-size: $icon-w $icon-h;
+
+  &.is-stomp {
+    background: transparent url('../images/grass.svg') no-repeat;
+    background-size: $icon-w $icon-h;    
+  }
+
+  &.is-growing {    
+    &:hover .leaves {      
+      @include animation(grow 1s ease-in 1 forwards);  
+    }  
+  }
+
+  &.is-grown .leaves {
+    top: 0px;
+    @include scale(1,1);
+  }
+
+  &.icon-big {
+    background-size: $icon-big-w $icon-big-h;
+  }
+}
+
+.leaves {
+  background: transparent url('../images/tree.svg') no-repeat;
+  background-size: $icon-w $icon-h;
+  @include scale(0.6,0.6);
+
+  width: $icon-w; 
+  height: $icon-h;
+
+  top: 9px;
+  position: absolute; 
+
+  .icon-big & {
+    width: $icon-big-w;
+    height: $icon-big-h;
+    background-size: $icon-big-w $icon-big-h;
+  }
+
+}
+
+@include keyframes (grow) {
+  100% {
+    top: 0px;
+    @include scale(1,1);
+  }
+}
+
+/* carbon - no animation :( */ 
+
+.i-carbon {
+
+  position: relative;
+
+  &.is-captured {
+    background: transparent url('../images/carbon-bag.svg') no-repeat;
+    background-size: $icon-w $icon-h;
+
+    &.icon-big  {
+      width: $icon-big-w;
+      height: $icon-big-h;
+      background-size: $icon-big-w $icon-big-h;
+    }
+  }
+
+  &.is-out {
+    background: transparent url('../images/carbon-empty.svg') no-repeat;
+    background-size: $icon-w $icon-h;
+  }
+
+}
+
