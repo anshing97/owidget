@@ -81,7 +81,7 @@ $(function() {
 
       case 'panel-carbon':
         $title_text.html('Last month, you captured <strong>' + savedCarbon + ' lbs</strong> of Carbon Dioxide!');
-        $insight_text.html('You saved 291 kWh this month compared to the year before. That savings is enough to offset the energy consumtpion of six average size cards for one month');        
+        $insight_text.html('The 218 kWh you saved is also equal to capturing 12 lbs of CO₂ and not released them to our atmposhere.');        
         break;
 
       default:
